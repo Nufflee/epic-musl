@@ -3,11 +3,8 @@
 ((union { long long ll; long l[2]; }){ .ll = x }).l[1]
 #define __SYSCALL_LL_O(x) __SYSCALL_LL_E((x))
 
-#if SYSCALL_NO_TLS
+// EPIC currently only supports syscalls through software interrupts
 #define SYSCALL_INSNS "int $128"
-#else
-#define SYSCALL_INSNS "call *%%gs:16"
-#endif
 
 #define SYSCALL_INSNS_12 "xchg %%ebx,%%edx ; " SYSCALL_INSNS " ; xchg %%ebx,%%edx"
 #define SYSCALL_INSNS_34 "xchg %%ebx,%%edi ; " SYSCALL_INSNS " ; xchg %%ebx,%%edi"
